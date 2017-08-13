@@ -23,7 +23,7 @@ describe('App', () => {
   it('renders a title correctly', () => {
     wrapper = mount(
       <I18nextProvider i18n={i18next.init(i18nData)}>
-        <App/>
+        <App stocks={[]}/>
       </I18nextProvider>,
       {attachTo: document.createElement('div')}
     );

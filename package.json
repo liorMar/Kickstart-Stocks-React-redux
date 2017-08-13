@@ -45,7 +45,8 @@
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-i18next": "^3.1.0",
-    "wix-axios-config": "latest"
+    "wix-axios-config": "latest",
+    "redux": "^3.7.0"
   },
   "babel": {
     "presets": [
