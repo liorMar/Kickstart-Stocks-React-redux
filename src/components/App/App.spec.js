@@ -15,6 +15,8 @@ const i18nData = {
   }
 };
 
+const noon = () => {};
+
 describe('App', () => {
   let wrapper;
 
@@ -23,7 +25,7 @@ describe('App', () => {
   it('renders a title correctly', () => {
     wrapper = mount(
       <I18nextProvider i18n={i18next.init(i18nData)}>
-        <App stocks={[]}/>
+        <App stocks={[]} searchHandler={noon} onChangeHandler={noon}/>
       </I18nextProvider>,
       {attachTo: document.createElement('div')}
     );

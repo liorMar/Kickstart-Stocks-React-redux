@@ -19,16 +19,21 @@ wixAxiosConfig(axios, {baseURL: baseUrl});
 
 /* redux */
 const SET_STOCKS = 'set-stocks';
+const SET_SEARCH_TERM = 'set-search-term';
 const setStocks = stocks => ({type: SET_STOCKS, stocks});
+const setSearchTerm = searchTerm => ({type: SET_SEARCH_TERM, searchTerm});
 
 const defaultState = {
-  stocks: []
+  stocks: [],
+  searchTerm: ''
 };
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_STOCKS:
       return {...state, stocks: action.stocks};
+    case SET_SEARCH_TERM:
+      return {...state, searchTerm: action.searchTerm};
     default:
       return state;
   }
@@ -36,25 +41,33 @@ const reducer = (state = defaultState, action) => {
 
 const store = createStore(reducer);
 
-const searchHandler = term => {
-  if (term === '') {
+const autoSearch = () => {
+  const searchTerm = store.getState().searchTerm;
+
+  if (searchTerm === '') {
     store.dispatch(setStocks([]));
   } else {
-    stocks.searchStocks(term).then(stocks => {
+    stocks.searchStocks(searchTerm).then(stocks => {
       store.dispatch(setStocks(stocks));
     });
   }
 };
 
+const onChangeHandler = searchTerm => {
+  store.dispatch(setSearchTerm(searchTerm));
+};
+
 const renderApp = () => {
   render(
     <I18nextProvider i18n={i18n({locale, baseUrl: staticsBaseUrl})}>
-      <App stocks={store.getState().stocks} searchHandler={searchHandler}/>
+      <App stocks={store.getState().stocks} onChangeHandler={onChangeHandler}/>
     </I18nextProvider>,
     document.getElementById('root')
   );
 };
 
 store.subscribe(renderApp);
+
+setInterval(autoSearch, 3000);
 
 renderApp();

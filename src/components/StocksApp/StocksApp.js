@@ -1,26 +1,14 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import s from './StocksApp.scss';
 import PropTypes from 'prop-types';
 import {map} from 'lodash/fp';
 import Stock from '../Stock/Stock';
 
-class StocksApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchTerm: ''
-    };
-  }
-
-  onChangeHandler(e) {
-    this.setState({[e.target.id]: e.target.value});
-  }
-
+class StocksApp extends PureComponent {
   render() {
     return (
       <div className={s['stocks-app']}>
-        <input type="text" id="searchTerm" value={this.state.searchTerm} onChange={e => this.onChangeHandler(e)}/>
-        <button onClick={() => this.props.searchHandler(this.state.searchTerm)}>Search</button>
+        <input type="text" placeholder="Search..." onChange={e => this.props.onChangeHandler(e.target.value)}/>
         {this.props.stocks.length ?
           <table>
             <thead>
@@ -43,7 +31,8 @@ class StocksApp extends Component {
 
 StocksApp.propTypes = {
   stocks: PropTypes.array,
-  searchHandler: PropTypes.func
+  onChangeHandler: PropTypes.func
+
 };
 
 export default StocksApp;

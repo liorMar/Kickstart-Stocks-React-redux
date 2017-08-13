@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import s from './App.scss';
 import StocksApp from '../StocksApp/StocksApp';
 
-function App({t, stocks, searchHandler}) {
+function App({t, stocks, onChangeHandler}) {
   return (
     <div className={s.root}>
       <div className={s.header}>
         <h2>{t('app.title')}</h2>
       </div>
-      <StocksApp stocks={stocks} searchHandler={searchHandler}/>
+      <StocksApp stocks={stocks} onChangeHandler={onChangeHandler}/>
     </div>
   );
 }
@@ -18,7 +18,7 @@ function App({t, stocks, searchHandler}) {
 App.propTypes = {
   t: PropTypes.func,
   stocks: PropTypes.array,
-  searchHandler: PropTypes.func
+  onChangeHandler: PropTypes.func
 };
 
 export default translate(null, {wait: true})(App);
